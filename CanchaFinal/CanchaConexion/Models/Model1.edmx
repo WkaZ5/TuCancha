@@ -1,0 +1,888 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TuCanchaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="id_administrador" />
+          </Key>
+          <Property Name="id_administrador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rut" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="edad" Type="date" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="comuna" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Canchas">
+          <Key>
+            <PropertyRef Name="id_cancha" />
+          </Key>
+          <Property Name="id_cancha" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="recinto" Type="int" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+          <Property Name="hora_final" Type="time" Precision="7" Nullable="false" />
+          <Property Name="deporte" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="rut" />
+          </Key>
+          <Property Name="rut" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="edad" Type="date" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="habilitado" Type="bit" Nullable="false" />
+          <Property Name="comuna" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Comunas">
+          <Key>
+            <PropertyRef Name="id_comuna" />
+          </Key>
+          <Property Name="id_comuna" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cuidad" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cuidades">
+          <Key>
+            <PropertyRef Name="id_cuidad" />
+          </Key>
+          <Property Name="id_cuidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="region" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Deportes">
+          <Key>
+            <PropertyRef Name="id_deporte" />
+          </Key>
+          <Property Name="id_deporte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jugadores">
+          <Key>
+            <PropertyRef Name="id_jugadores" />
+          </Key>
+          <Property Name="id_jugadores" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rut" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="edad" Type="date" Nullable="false" />
+          <Property Name="comuna" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+          <Property Name="cliente" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recintos">
+          <Key>
+            <PropertyRef Name="id_recinto" />
+          </Key>
+          <Property Name="id_recinto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="administrador" Type="int" Nullable="false" />
+          <Property Name="comuna" Type="int" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Regiones">
+          <Key>
+            <PropertyRef Name="id_regiones" />
+          </Key>
+          <Property Name="id_regiones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="fecha_elim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reservas">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cancha" Type="int" Nullable="false" />
+          <Property Name="confirmacion" Type="bit" />
+          <Property Name="comentarios" Type="varchar" MaxLength="150" />
+          <Property Name="monto_abono" Type="int" />
+          <Property Name="monto_total" Type="int" />
+          <Property Name="metodo_pago" Type="varchar" MaxLength="50" />
+          <Property Name="cant_personas" Type="int" />
+          <Property Name="equipo_a" Type="int" />
+          <Property Name="equipo_b" Type="int" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Administradores_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canchas_Deportes">
+          <End Role="Deportes" Type="Self.Deportes" Multiplicity="1" />
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportes">
+              <PropertyRef Name="id_deporte" />
+            </Principal>
+            <Dependent Role="Canchas">
+              <PropertyRef Name="deporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canchas_Recintos">
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="1" />
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recintos">
+              <PropertyRef Name="id_recinto" />
+            </Principal>
+            <Dependent Role="Canchas">
+              <PropertyRef Name="recinto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comunas_Cuidades">
+          <End Role="Cuidades" Type="Self.Cuidades" Multiplicity="1" />
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuidades">
+              <PropertyRef Name="id_cuidad" />
+            </Principal>
+            <Dependent Role="Comunas">
+              <PropertyRef Name="cuidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuidades_Regiones">
+          <End Role="Regiones" Type="Self.Regiones" Multiplicity="1" />
+          <End Role="Cuidades" Type="Self.Cuidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regiones">
+              <PropertyRef Name="id_regiones" />
+            </Principal>
+            <Dependent Role="Cuidades">
+              <PropertyRef Name="region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jugadores_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Jugadores" Type="Self.Jugadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="rut" />
+            </Principal>
+            <Dependent Role="Jugadores">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jugadores_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Jugadores" Type="Self.Jugadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Jugadores">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recintos_Administradores">
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="1" />
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administradores">
+              <PropertyRef Name="id_administrador" />
+            </Principal>
+            <Dependent Role="Recintos">
+              <PropertyRef Name="administrador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recintos_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Recintos">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_Canchas">
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Canchas">
+              <PropertyRef Name="id_cancha" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="cancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="rut" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TuCanchaModelStoreContainer">
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Canchas" EntityType="Self.Canchas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comunas" EntityType="Self.Comunas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuidades" EntityType="Self.Cuidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deportes" EntityType="Self.Deportes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jugadores" EntityType="Self.Jugadores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recintos" EntityType="Self.Recintos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regiones" EntityType="Self.Regiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Administradores_Comunas" Association="Self.FK_Administradores_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canchas_Deportes" Association="Self.FK_Canchas_Deportes">
+            <End Role="Deportes" EntitySet="Deportes" />
+            <End Role="Canchas" EntitySet="Canchas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canchas_Recintos" Association="Self.FK_Canchas_Recintos">
+            <End Role="Recintos" EntitySet="Recintos" />
+            <End Role="Canchas" EntitySet="Canchas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Comunas" Association="Self.FK_Clientes_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comunas_Cuidades" Association="Self.FK_Comunas_Cuidades">
+            <End Role="Cuidades" EntitySet="Cuidades" />
+            <End Role="Comunas" EntitySet="Comunas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuidades_Regiones" Association="Self.FK_Cuidades_Regiones">
+            <End Role="Regiones" EntitySet="Regiones" />
+            <End Role="Cuidades" EntitySet="Cuidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jugadores_Clientes" Association="Self.FK_Jugadores_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Jugadores" EntitySet="Jugadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jugadores_Comunas" Association="Self.FK_Jugadores_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Jugadores" EntitySet="Jugadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recintos_Administradores" Association="Self.FK_Recintos_Administradores">
+            <End Role="Administradores" EntitySet="Administradores" />
+            <End Role="Recintos" EntitySet="Recintos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recintos_Comunas" Association="Self.FK_Recintos_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Recintos" EntitySet="Recintos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_Canchas" Association="Self.FK_Reservas_Canchas">
+            <End Role="Canchas" EntitySet="Canchas" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_Clientes" Association="Self.FK_Reservas_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TuCanchaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="id_administrador" />
+          </Key>
+          <Property Name="id_administrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comuna" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comunas" Relationship="Self.FK_Administradores_Comunas" FromRole="Administradores" ToRole="Comunas" />
+          <NavigationProperty Name="Recintos" Relationship="Self.FK_Recintos_Administradores" FromRole="Administradores" ToRole="Recintos" />
+        </EntityType>
+        <EntityType Name="Canchas">
+          <Key>
+            <PropertyRef Name="id_cancha" />
+          </Key>
+          <Property Name="id_cancha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="recinto" Type="Int32" Nullable="false" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hora_final" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="deporte" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Deportes" Relationship="Self.FK_Canchas_Deportes" FromRole="Canchas" ToRole="Deportes" />
+          <NavigationProperty Name="Recintos" Relationship="Self.FK_Canchas_Recintos" FromRole="Canchas" ToRole="Recintos" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK_Reservas_Canchas" FromRole="Canchas" ToRole="Reservas" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="rut" />
+          </Key>
+          <Property Name="rut" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="habilitado" Type="Boolean" Nullable="false" />
+          <Property Name="comuna" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comunas" Relationship="Self.FK_Clientes_Comunas" FromRole="Clientes" ToRole="Comunas" />
+          <NavigationProperty Name="Jugadores" Relationship="Self.FK_Jugadores_Clientes" FromRole="Clientes" ToRole="Jugadores" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK_Reservas_Clientes" FromRole="Clientes" ToRole="Reservas" />
+        </EntityType>
+        <EntityType Name="Comunas">
+          <Key>
+            <PropertyRef Name="id_comuna" />
+          </Key>
+          <Property Name="id_comuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cuidad" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Administradores" Relationship="Self.FK_Administradores_Comunas" FromRole="Comunas" ToRole="Administradores" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Comunas" FromRole="Comunas" ToRole="Clientes" />
+          <NavigationProperty Name="Cuidades" Relationship="Self.FK_Comunas_Cuidades" FromRole="Comunas" ToRole="Cuidades" />
+          <NavigationProperty Name="Recintos" Relationship="Self.FK_Recintos_Comunas" FromRole="Comunas" ToRole="Recintos" />
+          <NavigationProperty Name="Jugadores" Relationship="TuCanchaModel.FK_Jugadores_Comunas" FromRole="Comunas" ToRole="Jugadores" />
+        </EntityType>
+        <EntityType Name="Cuidades">
+          <Key>
+            <PropertyRef Name="id_cuidad" />
+          </Key>
+          <Property Name="id_cuidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="region" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comunas" Relationship="Self.FK_Comunas_Cuidades" FromRole="Cuidades" ToRole="Comunas" />
+          <NavigationProperty Name="Regiones" Relationship="Self.FK_Cuidades_Regiones" FromRole="Cuidades" ToRole="Regiones" />
+        </EntityType>
+        <EntityType Name="Deportes">
+          <Key>
+            <PropertyRef Name="id_deporte" />
+          </Key>
+          <Property Name="id_deporte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Canchas" Relationship="Self.FK_Canchas_Deportes" FromRole="Deportes" ToRole="Canchas" />
+        </EntityType>
+        <EntityType Name="Jugadores">
+          <Key>
+            <PropertyRef Name="id_jugadores" />
+          </Key>
+          <Property Name="id_jugadores" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="comuna" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <Property Name="cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Jugadores_Clientes" FromRole="Jugadores" ToRole="Clientes" />
+          <NavigationProperty Name="Comunas" Relationship="TuCanchaModel.FK_Jugadores_Comunas" FromRole="Jugadores" ToRole="Comunas" />
+        </EntityType>
+        <EntityType Name="Recintos">
+          <Key>
+            <PropertyRef Name="id_recinto" />
+          </Key>
+          <Property Name="id_recinto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="administrador" Type="Int32" Nullable="false" />
+          <Property Name="comuna" Type="Int32" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Administradores" Relationship="Self.FK_Recintos_Administradores" FromRole="Recintos" ToRole="Administradores" />
+          <NavigationProperty Name="Canchas" Relationship="Self.FK_Canchas_Recintos" FromRole="Recintos" ToRole="Canchas" />
+          <NavigationProperty Name="Comunas" Relationship="Self.FK_Recintos_Comunas" FromRole="Recintos" ToRole="Comunas" />
+        </EntityType>
+        <EntityType Name="Regiones">
+          <Key>
+            <PropertyRef Name="id_regiones" />
+          </Key>
+          <Property Name="id_regiones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="fecha_elim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cuidades" Relationship="Self.FK_Cuidades_Regiones" FromRole="Regiones" ToRole="Cuidades" />
+        </EntityType>
+        <EntityType Name="Reservas">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cancha" Type="Int32" Nullable="false" />
+          <Property Name="confirmacion" Type="Boolean" Nullable="true" />
+          <Property Name="comentarios" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="monto_abono" Type="Int32" />
+          <Property Name="monto_total" Type="Int32" />
+          <Property Name="metodo_pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cant_personas" Type="Int32" />
+          <Property Name="equipo_a" Type="Int32" />
+          <Property Name="equipo_b" Type="Int32" />
+          <NavigationProperty Name="Canchas" Relationship="Self.FK_Reservas_Canchas" FromRole="Reservas" ToRole="Canchas" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Reservas_Clientes" FromRole="Reservas" ToRole="Clientes" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Administradores_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recintos_Administradores">
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="1" />
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administradores">
+              <PropertyRef Name="id_administrador" />
+            </Principal>
+            <Dependent Role="Recintos">
+              <PropertyRef Name="administrador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canchas_Deportes">
+          <End Role="Deportes" Type="Self.Deportes" Multiplicity="1" />
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deportes">
+              <PropertyRef Name="id_deporte" />
+            </Principal>
+            <Dependent Role="Canchas">
+              <PropertyRef Name="deporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canchas_Recintos">
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="1" />
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recintos">
+              <PropertyRef Name="id_recinto" />
+            </Principal>
+            <Dependent Role="Canchas">
+              <PropertyRef Name="recinto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_Canchas">
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Canchas">
+              <PropertyRef Name="id_cancha" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="cancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jugadores_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Jugadores" Type="Self.Jugadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="rut" />
+            </Principal>
+            <Dependent Role="Jugadores">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="rut" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comunas_Cuidades">
+          <End Role="Cuidades" Type="Self.Cuidades" Multiplicity="1" />
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuidades">
+              <PropertyRef Name="id_cuidad" />
+            </Principal>
+            <Dependent Role="Comunas">
+              <PropertyRef Name="cuidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recintos_Comunas">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
+          <End Role="Recintos" Type="Self.Recintos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Recintos">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuidades_Regiones">
+          <End Role="Regiones" Type="Self.Regiones" Multiplicity="1" />
+          <End Role="Cuidades" Type="Self.Cuidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regiones">
+              <PropertyRef Name="id_regiones" />
+            </Principal>
+            <Dependent Role="Cuidades">
+              <PropertyRef Name="region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TuCanchaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" />
+          <EntitySet Name="Canchas" EntityType="Self.Canchas" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Comunas" EntityType="Self.Comunas" />
+          <EntitySet Name="Cuidades" EntityType="Self.Cuidades" />
+          <EntitySet Name="Deportes" EntityType="Self.Deportes" />
+          <EntitySet Name="Jugadores" EntityType="Self.Jugadores" />
+          <EntitySet Name="Recintos" EntityType="Self.Recintos" />
+          <EntitySet Name="Regiones" EntityType="Self.Regiones" />
+          <EntitySet Name="Reservas" EntityType="Self.Reservas" />
+          <AssociationSet Name="FK_Administradores_Comunas" Association="Self.FK_Administradores_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recintos_Administradores" Association="Self.FK_Recintos_Administradores">
+            <End Role="Administradores" EntitySet="Administradores" />
+            <End Role="Recintos" EntitySet="Recintos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canchas_Deportes" Association="Self.FK_Canchas_Deportes">
+            <End Role="Deportes" EntitySet="Deportes" />
+            <End Role="Canchas" EntitySet="Canchas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canchas_Recintos" Association="Self.FK_Canchas_Recintos">
+            <End Role="Recintos" EntitySet="Recintos" />
+            <End Role="Canchas" EntitySet="Canchas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_Canchas" Association="Self.FK_Reservas_Canchas">
+            <End Role="Canchas" EntitySet="Canchas" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Comunas" Association="Self.FK_Clientes_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jugadores_Clientes" Association="Self.FK_Jugadores_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Jugadores" EntitySet="Jugadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_Clientes" Association="Self.FK_Reservas_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comunas_Cuidades" Association="Self.FK_Comunas_Cuidades">
+            <End Role="Cuidades" EntitySet="Cuidades" />
+            <End Role="Comunas" EntitySet="Comunas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recintos_Comunas" Association="Self.FK_Recintos_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Recintos" EntitySet="Recintos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuidades_Regiones" Association="Self.FK_Cuidades_Regiones">
+            <End Role="Regiones" EntitySet="Regiones" />
+            <End Role="Cuidades" EntitySet="Cuidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jugadores_Comunas" Association="TuCanchaModel.FK_Jugadores_Comunas">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Jugadores" EntitySet="Jugadores" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="TuCanchaModel.sysdiagrams" />
+        </EntityContainer>
+        <Association Name="FK_Jugadores_Comunas">
+          <End Type="TuCanchaModel.Comunas" Role="Comunas" Multiplicity="1" />
+          <End Type="TuCanchaModel.Jugadores" Role="Jugadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunas">
+              <PropertyRef Name="id_comuna" />
+            </Principal>
+            <Dependent Role="Jugadores">
+              <PropertyRef Name="comuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TuCanchaModelStoreContainer" CdmEntityContainer="TuCanchaEntities">
+          <EntitySetMapping Name="Administradores">
+            <EntityTypeMapping TypeName="TuCanchaModel.Administradores">
+              <MappingFragment StoreEntitySet="Administradores">
+                <ScalarProperty Name="id_administrador" ColumnName="id_administrador" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="comuna" ColumnName="comuna" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Canchas">
+            <EntityTypeMapping TypeName="TuCanchaModel.Canchas">
+              <MappingFragment StoreEntitySet="Canchas">
+                <ScalarProperty Name="id_cancha" ColumnName="id_cancha" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="recinto" ColumnName="recinto" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_final" ColumnName="hora_final" />
+                <ScalarProperty Name="deporte" ColumnName="deporte" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="TuCanchaModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="comuna" ColumnName="comuna" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comunas">
+            <EntityTypeMapping TypeName="TuCanchaModel.Comunas">
+              <MappingFragment StoreEntitySet="Comunas">
+                <ScalarProperty Name="id_comuna" ColumnName="id_comuna" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="cuidad" ColumnName="cuidad" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuidades">
+            <EntityTypeMapping TypeName="TuCanchaModel.Cuidades">
+              <MappingFragment StoreEntitySet="Cuidades">
+                <ScalarProperty Name="id_cuidad" ColumnName="id_cuidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deportes">
+            <EntityTypeMapping TypeName="TuCanchaModel.Deportes">
+              <MappingFragment StoreEntitySet="Deportes">
+                <ScalarProperty Name="id_deporte" ColumnName="id_deporte" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jugadores">
+            <EntityTypeMapping TypeName="TuCanchaModel.Jugadores">
+              <MappingFragment StoreEntitySet="Jugadores">
+                <ScalarProperty Name="id_jugadores" ColumnName="id_jugadores" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="comuna" ColumnName="comuna" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recintos">
+            <EntityTypeMapping TypeName="TuCanchaModel.Recintos">
+              <MappingFragment StoreEntitySet="Recintos">
+                <ScalarProperty Name="id_recinto" ColumnName="id_recinto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="administrador" ColumnName="administrador" />
+                <ScalarProperty Name="comuna" ColumnName="comuna" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regiones">
+            <EntityTypeMapping TypeName="TuCanchaModel.Regiones">
+              <MappingFragment StoreEntitySet="Regiones">
+                <ScalarProperty Name="id_regiones" ColumnName="id_regiones" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="fecha_elim" ColumnName="fecha_elim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservas">
+            <EntityTypeMapping TypeName="TuCanchaModel.Reservas">
+              <MappingFragment StoreEntitySet="Reservas">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="cancha" ColumnName="cancha" />
+                <ScalarProperty Name="confirmacion" ColumnName="confirmacion" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="monto_abono" ColumnName="monto_abono" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+                <ScalarProperty Name="cant_personas" ColumnName="cant_personas" />
+                <ScalarProperty Name="equipo_a" ColumnName="equipo_a" />
+                <ScalarProperty Name="equipo_b" ColumnName="equipo_b" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TuCanchaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
