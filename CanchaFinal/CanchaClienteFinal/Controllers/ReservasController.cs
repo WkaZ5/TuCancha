@@ -9,7 +9,7 @@ using CanchaConexion.Models;
 using System.Security.Cryptography;
 using System.Configuration;
 using System.IO;
-
+using CanchaClienteFinal.Models;
 
 namespace CanchaClienteFinal.Controllers
 {
@@ -22,31 +22,41 @@ namespace CanchaClienteFinal.Controllers
 
             ViewBag.DeportesList = new SelectList(GetDeportesList(), "id_deporte", "nombre");
             ViewBag.RecintosList = new SelectList(GetRecintosList(), "id_recinto", "nombre");
+
             return View("");
 
-        }
+        }       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Reservas(int? id_deporte, int? id_recinto, DateTime fecha )
-        {           
-            String consulta = "SELECT * FROM canchas WHERE id_cancha NOT IN (SELECT cancha FROM reservas WHERE fecha ='"+ fecha +"') AND recinto = " + id_recinto + " AND deporte = " + id_deporte + " AND estado = 1";
+        public ActionResult Reservas(int? id_deporte, int? id_recinto, String fecha)
+        {
+            String connectionString = "Server=localhost;Database=TuCancha;User Id=User1;Password=12345;";
+            String consulta = "SELECT * FROM canchas WHERE id_cancha NOT IN (SELECT cancha FROM reservas WHERE fecha ='"+ fecha +"') AND recinto = " + id_recinto + " AND deporte = " + id_deporte + " AND estado = 1";      
             ViewBag.Fecha = fecha;
-            //using (SqlConnection connection = new SqlConnection())
-            //{
-            //    connection.Open();
-            //    SqlCommand command = new SqlCommand(consulta, connection);
+            List<Selecc> listaa = new List<Selecc>();
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(consulta, connection);
 
-            //    var datos = command.ExecuteReader();
-            //    while (datos.Read())
-            //    {
-            //        datos.GetInt32(0);
-            //        datos.GetString(1);
-            //        datos.GetString(4);
+                var datos = command.ExecuteReader();
+                
+                while (datos.Read())
+                {
+                    Selecc seleccionar = new Selecc(); 
 
-            //    }
+                    seleccionar.id= datos.GetInt32(0);
+                    seleccionar.nombre = datos.GetString(1);
+                    seleccionar.horain = datos.GetTimeSpan(4);
 
-            //}
-            return RedirectToAction("Seleccion");
+                    listaa.Add(seleccionar);
+              
+                }       
+
+            }
+
+            return View("Seleccion",listaa);
         }
 
 
@@ -59,23 +69,42 @@ namespace CanchaClienteFinal.Controllers
             }
            return body;
         }
+        public ActionResult Seleccion()
+        {
+        
+            return View("");
+        }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Seleccion(String rut , int? idcancha)
         {
+   
            DateTime fechareserva = ViewBag.Fecha;
+            String connectionString = "Server=localhost;Database=TuCancha;User Id=User1;Password=12345;";
             String insertar = "INSERT INTO reservas (cliente,cancha,confirmacion,monto_abono,monto_total,metodo_pago,cant_personas,equipo_a,equipo_b,fecha) VALUES ('"+rut+"',"+idcancha+ ",null,null,null,null,null,null,null,"+fechareserva+") ) ";
-            String conmsultarcliente ="SELECT correo FROM Clientes where rut='"+rut+"'" ;
-            //using (SqlConnection connection = new SqlConnection())
-            //{
-            //    connection.Open();
-            //    SqlCommand command = new SqlCommand(insertar, connection);
+          String conmsultarcliente = "SELECT correo FROM Clientes where rut='" + rut + "'";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(insertar,connection);
+                command.ExecuteNonQuery();
+
+                SqlCommand command1 = new SqlCommand(conmsultarcliente, connection);
+                var datos = command1.ExecuteReader();
+
+                while (datos.Read())
+                {
+                    String mail = datos.GetString(0);
+                    ViewBag.correo = mail;
+                }
+
+                
+            }
             
-            //}
-            ViewBag.email = "datocliente";
 
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-            msg.To.Add(ViewBag.email);
+            msg.To.Add(ViewBag.correo);
             msg.Subject = Request.Form["Reserva"];
             msg.Body = CrearBody();
             msg.IsBodyHtml = true;
@@ -116,10 +145,7 @@ namespace CanchaClienteFinal.Controllers
             List<Recintos> recinto = db.Recintos.ToList();
             return recinto;
 
-        }
-        
-
-       
+        }   
 
     }
 }

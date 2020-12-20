@@ -190,6 +190,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\HtmlModelo.html" />
+    <Content Include="Views\HtmlRegis.html" />
     <Content Include="Web.config" />
     <Content Include="Views\Canchas\Canchas.cshtml" />
     <Content Include="Views\Confirmacion\Confirmacion.cshtml" />
@@ -210,6 +211,7 @@
     </Compile>
     <Compile Include="Models\Clienteccf.cs" />
     <Compile Include="Models\reserv.cs" />
+    <Compile Include="Models\Selecc.cs" />
     <Compile Include="Models\Sesioncliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

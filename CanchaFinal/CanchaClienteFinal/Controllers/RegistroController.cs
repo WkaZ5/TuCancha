@@ -10,6 +10,7 @@ using System.Data;
 using System.Text;
 using System.Security.Cryptography;
 using CanchaClienteFinal.Models;
+using System.IO;
 
 namespace CanchaClienteFinal.Controllers
 {
@@ -46,6 +47,31 @@ namespace CanchaClienteFinal.Controllers
                 };
                 db.Clientes.Add(cls);
                 db.SaveChanges();
+                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+                msg.To.Add(cli.Correo);
+                msg.Subject = Request.Form["Registro"];
+                msg.Body = CrearBody(cli.Correo,cli.Nombre,cli.Apellido);
+                msg.IsBodyHtml = true;
+                msg.BodyEncoding = System.Text.Encoding.UTF8;
+                msg.From = new System.Net.Mail.MailAddress("tucancha.soporte@gmail.com");
+
+                System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
+
+                cliente.Credentials = new System.Net.NetworkCredential("tucancha.soporte@gmail.com", "1234ASDF");
+                cliente.Port = 587;
+                cliente.EnableSsl = true;
+
+                cliente.Host = "smtp.gmail.com"; //mail.dominio.com
+
+                try
+                {
+                    cliente.Send(msg);
+                    ViewBag.Message = "Mensaje Enviado correctamente";
+                }
+                catch (Exception)
+                {
+                    ViewBag.Message = "Error en enviar el correo intente de nuevo";
+                }
                 return RedirectToAction("../Menu/Menu");
             }
 
@@ -65,6 +91,20 @@ namespace CanchaClienteFinal.Controllers
             }
 
             return sBuilder.ToString();
+        }
+        private string CrearBody(String correo , String nombre , String apellido )
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/HtmlRegis.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("PNombre",nombre+" "+apellido);
+            body = body.Replace("Correo", correo);
+            
+
+            return body;
         }
     }
     

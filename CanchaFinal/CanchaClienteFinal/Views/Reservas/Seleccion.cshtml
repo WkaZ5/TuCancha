@@ -1,4 +1,5 @@
-﻿<head>
+﻿@model CanchaClienteFinal.Models.Selecc
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,35 +51,35 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal text-center" lang="es" id="content" autocomplete="off" style=" width:40%;height:60%; border-radius:15px; background-color: #EAFAF1
+    <div class="form-horizontal text-center" lang="es" id="content" autocomplete="off" style=" width:40%;height:60%; border-radius:15px; background-color: #EAFAF1
 ">
-    <h4 style="font-family:Vudotronic">Reserva de Canchas</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group" autocomplete="off">
-        <label>Elije Cancha y Hora:</label>
-        <br />
-        <div class="col-md-10" style=" width:100%; margin-left:8%; margin-right:5% ">
-            @*@Html.DropDownListFor(model => "", ViewBag.DeportesList as SelectList, "--Selecciona cancha y hora--", new { @class = "form-control text-center ", required = "required" })*@
+        <h4 style="font-family:Vudotronic">Reserva de Canchas</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" autocomplete="off">
+            <label>Elije Cancha y Hora:</label>
+            <br />
+            <div class="col-md-10" style=" width:100%; margin-left:8%; margin-right:5% ">
+                @*@Html.DropDownListFor(model => model.reci.id_recinto, ViewBag.RecintosList as SelectList, "--Selecciona un Recinto--", new { @class = "form-control text-center ", required = "required", @id = "id_recinto", Name = "id_recinto" })*@
+            </div>
         </div>
-    </div>
-    <div class="form-group" autocomplete="off">
-        <label>Ingresa tu Rut para Confirmar:</label>
-        <br />
-        <div class="col-md-10" style=" width:100%; margin-left:8%; margin-right:5% ">
-            <input type="text"  name="rut" required autocomplete="off" placeholder="11222333-4"/>
-        </div>
-    </div>
-    <br />
-    <div class="form-group text-center ">
-        <div class="">
-            <input type="submit" value="Confirmar" class="btn btn-info" />
+        <div class="form-group" autocomplete="off">
+            <label>Ingresa tu Rut para Confirmar:</label>
+            <br />
+            <div class="col-md-10" style=" width:100%; margin-left:8%; margin-right:5% ">
+                <input type="text" name="rut" required autocomplete="off" placeholder="11222333-4" />
+            </div>
         </div>
         <br />
-        <div class="btn btn-outline-warning right">
-            @Html.ActionLink("Volver", "../Reservas/Reservas")
+        <div class="form-group text-center ">
+            <div class="">
+                <input type="submit" value="Confirmar" class="btn btn-info" />
+            </div>
+            <br />
+            <div class="btn btn-outline-warning right">
+                @Html.ActionLink("Volver", "../Reservas/Reservas")
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 }

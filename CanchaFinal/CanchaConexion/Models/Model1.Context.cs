@@ -35,6 +35,5 @@ namespace CanchaConexion.Models
         public virtual DbSet<Recintos> Recintos { get; set; }
         public virtual DbSet<Regiones> Regiones { get; set; }
         public virtual DbSet<Reservas> Reservas { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
