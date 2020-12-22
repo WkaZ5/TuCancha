@@ -1,0 +1,138 @@
+﻿@model CanchaConexion.Models.Clientes
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" lang="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />  
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/menu.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/styleSwitcher.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/themes/green.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/themes/red.css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">      
+    <script src="~/Content/ValidadorRut.js"></script>
+    <script>
+        
+
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1920:@DateTime.Now.Year",
+                dateFormat: "yy/mm/dd",
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            });
+        });
+
+    </script>
+
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+ 
+
+    <title>Registro</title>
+
+
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal container1" lang="es" id="content" autocomplete="off" style=" width:40%; border-radius:15px; background-color: #EAFAF1
+">
+    <h4 style="font-family:Vudotronic">Registro Clientes</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group row1" >
+        @Html.Label("Rut  :", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.rut, new { @class = "form-control col-75", id = "rut" ,name = "rut" ,  oninput = "checkRut(this)" ,placeholder = "Ingrese RUT" , autocomplete="off"})
+            @Html.ValidationMessageFor(model => model.rut, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row1" >
+        @Html.Label("Nombre:", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control col-75", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1" >
+        @Html.Label("Apellido:", htmlAttributes: new { @class = "control-label col-25"})
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.apellido, new { @class = "form-control col-75", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.apellido, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1" >
+        @Html.Label("Direccion:", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.direccion, new { @class = "form-control col-75", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1"  autocomplete="off" >
+        @Html.Label("Fecha de Nacimiento:", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.edad, new { @class = "form-control col-75 ", @placeholder = "aaaa-mm-dd", id = "datepicker", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.edad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1" >
+        @Html.Label("Contraseña:", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.PasswordFor(model => model.contraseña, new { @class = "form-control col-75", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.contraseña, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1" >
+        @Html.Label("Correo  :", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.TextBoxFor(model => model.correo, new { @class = "form-control col-75", autocomplete = "off", required = "required" })
+            @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row1" >
+        @Html.LabelFor(model => model.comuna, "Comuna", htmlAttributes: new { @class = "control-label col-25" })
+        <div class="col-md-10" style=" width:50%">
+            @Html.DropDownList("comuna", null, htmlAttributes: new { @class = "form-control " })
+            @Html.ValidationMessageFor(model => model.comuna, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row1 ">
+        <div class="col-50 row1">
+            <input type="submit" value="Registrarse" class="btn btn-info" />
+        </div>      
+    </div>
+    <div style="margin-right:5%">
+        <div class="btn btn-outline-warning" >
+            @Html.ActionLink("Volver", "../Menu/Menu")
+        </div>
+    </div>
+    
+
+</div>
+
+}
